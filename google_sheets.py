@@ -11,13 +11,15 @@ def update_data_in_sheets(
     tab,
 ):
     # Authorize Google Sheets API
-    try:
-        path = "/app/"
-        for file in os.listdir(path):
-            if file == "service_account_credentials.json":
-                gc = pygsheets.authorize(service_file=file)
-    except FileNotFoundError:
-        gc = pygsheets.authorize(service_file="./service_account_credentials.json")
+    authorization_json = {
+      'type': 'service_account',
+      'project_id': os.environ['sheets_project_id'],
+      'private_key_id': os.environ['sheets_private_key_id'],
+      'private_key': os.environ['sheets_private_key'],
+      'client_email': os.environ['sheets_client_email'],
+      'client_id': os.environ['sheets_client_id'],
+    }
+    gc = pygsheets.authorize(service_file = authorization_json)
     
     # Navigate to the intended tab and clear current contents
     spreadsheet_id = os.environ['liaf_gsheet_id']
@@ -31,7 +33,6 @@ def update_data_in_sheets(
 
     return df
 
-
 '''
 Method: get_csv_from_s3()
 
@@ -42,14 +43,14 @@ def get_data_from_s3(
     report,
 ):
     try:
-        return pd.read_csv(
-            s3_fs.open(
-                s3_bucket + '/' + report + '.csv'
-            ),
-            encoding='latin-1',
-        )
+      return pd.read_csv(
+          s3_fs.open(
+              s3_bucket + '/' + report + '.csv'
+          ),
+          encoding='latin-1',
+      )
     except pd.errors.EmptyDataError:
-        return pd.DataFrame()
+      return pd.DataFrame()
 
 '''
 Method: update_data_in_s3()
@@ -180,36 +181,3 @@ def aggregate_liaf_data(
         aggregate_data_df,
         'Data',
     )
-
-aggregate_liaf_data(
-    [
-        {
-            'Report': 'Sign Ups',
-            'Aggregate Column': 'payment',
-            'Aggregation Name': 'Revenue',
-            'Aggregation Type': 'sum',
-            'Date Column': 'signup_datetime',
-        },
-        {
-            'Report': 'Sign Ups',
-            'Aggregate Column': 'signup_datetime',
-            'Aggregation Name': 'New Students',
-            'Aggregation Type': 'count',
-            'Date Column': 'signup_datetime',
-        },
-        {
-            'Report': 'Completed Lectures',
-            'Aggregate Column': 'timestamp',
-            'Aggregation Name': 'Lectures',
-            'Aggregation Type': 'count',
-            'Date Column': 'timestamp',
-        },
-        {
-            'Report': 'Twitter Followers',
-            'Aggregate Column': 'Followers',
-            'Aggregation Name': 'Twitter Followers',
-            'Aggregation Type': 'sum',
-            'Date Column': 'Date',
-        },
-    ],
-)

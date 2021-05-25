@@ -1,11 +1,26 @@
 [tool.poetry]
-name = "repl_python3_LIAF-Automations"
+name = "liaf-automations"
 version = "0.1.0"
-description = ""
-authors = ["Your Name <you@example.com>"]
+description = "Saving $50 per month on Zapier by coding connections myself"
+authors = ["Matt Blank <m@likeiamfive.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
+aiohttp = "^3.6.2"
+boto3 = "^1.14.45"
+flask = "^1.0.2"
+Flask-RESTful = "^0.3.6"
+numpy = "^1.19.1"
+pandas = "^1.1.0"
+pygsheets = "^2.0.3.1"
+python-dateutil = "^2.8.1"
+requests = "^2.20.0"
+s3fs = "^0.4.2"
+selenium = "^3.141.0"
+slackclient = "^2.8.1"
+tweepy = "^3.10.0"
+mailchimp3 = "^3.0.14"
+wheel = "^0.36.2"
 
 [tool.poetry.dev-dependencies]
 

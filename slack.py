@@ -1,3 +1,4 @@
+import os
 # Import packages
 from settings import *
 
@@ -10,9 +11,11 @@ def post_to_slack(message):
   payload = {
     'text': message,
   }
+  
+  url = os.environ['slack_url']
 
   r = requests.post(
-    os.environ['slack_url'],
+    url,
     headers = {
       'Content-Type': 'application/json',
     },

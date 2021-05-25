@@ -69,7 +69,7 @@ def course_enrollment(
         },
     ]
 
-    # Create / Update user in Mailchimp
+    # Create / Update student in Mailchimp
     add_student(
         course_enrollment_data,
     )
@@ -131,7 +131,7 @@ def course_completion(
         },
     ]
 
-    # Create / Update user in Mailchimp
+    # Create / Update student in Mailchimp
     add_student(
         course_enrollment_data,
     )
@@ -198,7 +198,7 @@ def lecture_completion(
         },
     ]
 
-    # Create / Update user in Mailchimp
+    # Create / Update student in Mailchimp
     add_student(
         lecture_completion_data,
     )

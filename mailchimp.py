@@ -13,19 +13,6 @@ def instantiate_mailchimp_api():
     )
 
 '''
-Method: get_list_id()
-
-Summary: Retrieves the first list id from Mailchimp API
-'''
-def get_list_id(
-    client
-):
-  # Get list id
-  list_id = client.lists.all(get_all=False)['lists'][0]['id']
-
-  return list_id
-
-'''
 Method: get_student_status()
 
 Summary: Retrieves the subscription status for a specific user
@@ -57,7 +44,7 @@ def add_student(
     client = instantiate_mailchimp_api()
 
     # Get list_id to add member to
-    list_id = get_list_id(client)
+    list_id = os.environ['mailchimp_list_id']
 
     # Get student 'status' if student is already in Mailchimp
     status = get_student_status(
